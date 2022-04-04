@@ -1,7 +1,6 @@
 using MassTransit;
 using MasstransitRabbitMq.Consumers;
 using MasstransitRabbitMq.Filters;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,7 +18,6 @@ builder.Services.AddMassTransit(x =>
 {
     x.AddConsumer<WeatherAnalysedConsumer>();
     x.SetKebabCaseEndpointNameFormatter();
-
     x.UsingRabbitMq((context, cfg) =>
     {
         //cfg.Host("rabbitmq://indis:123456@localhost:5672");
@@ -33,14 +31,15 @@ builder.Services.AddMassTransit(x =>
         {
             e.ConfigureConsumer<WeatherAnalysedConsumer>(context);
         });
+        
         cfg.ConfigureEndpoints(context);
     });
 });
 
 builder.Services.AddStackExchangeRedisCache(options =>
  {
-     options.Configuration = "127.0.0.1:6379";
-     options.InstanceName = "SampleInstance";
+     options.Configuration = "172.24.160.1:6379";
+    // options.InstanceName = "test-redis";
  });
 
 var app = builder.Build();
