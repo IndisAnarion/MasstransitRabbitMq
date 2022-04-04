@@ -32,3 +32,8 @@ Docker container içerisinde terminal açmak
 docker exec -it test-redis /bin/bash
 ```
 
+## Docker Build
+
+```powershell
+docker build --rm --pull -f "D:\Projects\Sample\MasstransitRabbitMq/Dockerfile" --label "com.microsoft.created-by=visual-studio-code" -t "masstransitrabbitmq:latest" "D:\Projects\Sample\MasstransitRabbitMq
+```

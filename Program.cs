@@ -22,7 +22,7 @@ builder.Services.AddMassTransit(x =>
     {
         //cfg.Host("rabbitmq://indis:123456@localhost:5672");
 
-        cfg.Host("localhost", "/", h=>{
+        cfg.Host("172.24.160.1", "/", h=>{
             h.Username("indis");
             h.Password("123456");
         });

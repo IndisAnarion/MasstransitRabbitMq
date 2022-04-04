@@ -18,7 +18,6 @@ namespace MasstransitRabbitMq.Consumers
 
         public async Task Consume(ConsumeContext<WeatherAnalysed> context)
         {
-            logger.LogInformation("Value: {Value}", context.Message.Date);
             try
             {
                 context.Message.InvokeRedisCache(distributedCache);

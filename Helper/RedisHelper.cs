@@ -11,8 +11,8 @@ namespace MasstransitRabbitMq.Helper
         {
             try
             {
-                Console.WriteLine($"Redis {message.Date.ToShortDateString()} de güncellendi");
-                var serializedWeather = JsonSerializer.Serialize(message);
+                Console.WriteLine($"Redis {DateTime.Now.ToShortDateString()} de güncellendi");
+                var serializedWeather = JsonSerializer.Serialize(message.Weathers);
                 var weatherEncoded = Encoding.UTF8.GetBytes(serializedWeather);
                 distributedCache.Set("weather", weatherEncoded);
             }

@@ -2,12 +2,8 @@ namespace MasstransitRabbitMq.Model.BusModels
 {
     public class WeatherAnalysed
     {
-        public DateTime Date { get; set; }
+        public DateTime Date => DateTime.Now;
 
-        public int TemperatureC { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-
-        public string? Summary { get; set; }
+        public List<Weather>? Weathers { get; set; }
     }
 }

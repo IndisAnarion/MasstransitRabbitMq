@@ -22,15 +22,21 @@ namespace MasstransitRabbitMq.Filters
             if (context.Result is ObjectResult result)
             {
                 WeatherForecast[]? weatherResult = (object)result.Value as WeatherForecast[];
-
-                foreach (WeatherForecast weather in weatherResult)
+                List<Weather> weatherAnalyzedResults = new List<Weather>();
+                if (weatherResult != null && weatherResult.Any())
                 {
-                    await this.publishEndpoint.Publish(new WeatherAnalysed
+                    weatherResult.ToList().ForEach(w =>
                     {
-                        Date = weather.Date,
-                        Summary = weather.Summary,
-                        TemperatureC = weather.TemperatureC
+                        Weather weather = new Weather
+                        {
+                            Date = w.Date,
+                            Summary = w.Summary,
+                            TemperatureC = w.TemperatureC
+                        };
+                        weatherAnalyzedResults.Add(weather);
                     });
+
+                    await this.publishEndpoint.Publish(new WeatherAnalysed { Weathers = weatherAnalyzedResults });
                 }
             }
         }
