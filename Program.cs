@@ -1,4 +1,5 @@
 using MassTransit;
+using MasstransitRabbitMq;
 using MasstransitRabbitMq.Consumers;
 using MasstransitRabbitMq.Filters;
 
@@ -14,33 +15,9 @@ builder.Services.AddScoped<WeatherForecastFilter>();
 
 
 
-builder.Services.AddMassTransit(x =>
-{
-    x.AddConsumer<WeatherAnalysedConsumer>();
-    x.SetKebabCaseEndpointNameFormatter();
-    x.UsingRabbitMq((context, cfg) =>
-    {
-        //cfg.Host("rabbitmq://indis:123456@localhost:5672");
-
-        cfg.Host("172.24.160.1", "/", h=>{
-            h.Username("indis");
-            h.Password("123456");
-        });
-
-        cfg.ReceiveEndpoint("weather-analyzed", e =>
-        {
-            e.ConfigureConsumer<WeatherAnalysedConsumer>(context);
-        });
-        
-        cfg.ConfigureEndpoints(context);
-    });
-});
-
-builder.Services.AddStackExchangeRedisCache(options =>
- {
-     options.Configuration = "172.24.160.1:6379";
-    // options.InstanceName = "test-redis";
- });
+builder.Services.AddMasstransitRabbitMq();
+builder.Services.AddRedisCache();
+builder.Services.AddJaeger();
 
 var app = builder.Build();
 

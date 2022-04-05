@@ -22,7 +22,14 @@
 	// Add the IDs of extensions you want installed when the container is created.
 	"extensions": [
 		"ms-dotnettools.csharp",
-		"mutantdino.resourcemonitor" // docker container monitoring
+		"mutantdino.resourcemonitor",
+		"donjayamanne.githistory",
+		"codezombiech.gitignore",
+		"eamodio.gitlens",
+		"DavidAnson.vscode-markdownlint",
+		"eg2.vscode-npm-script",
+		"vscode-icons-team.vscode-icons",
+		"ms-vscode.vs-keybindings"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
